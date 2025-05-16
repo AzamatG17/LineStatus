@@ -17,12 +17,14 @@ builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>((serv
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddScoped<IDbContextFactory, DbContextFactory>();
+
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 builder.Services.AddCarter();
 
 var app = builder.Build();
-
+ 
 if (app.Environment.IsDevelopment())
 {
     app.MapScalarApiReference();
